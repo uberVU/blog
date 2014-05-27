@@ -4,8 +4,11 @@ title: About
 permalink: /about/
 ---
 
-This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](http://jekyllrb.com/)
+You are reading the uberVU Development blog.
+If you are looking for our general blog you will find it [here](http://www.ubervu.com/blog). You can find more about us on our [website](https://www.ubervu.com/)
 
-You can find the source code for the Jekyll new theme at: [github.com/jglovier/jekyll-new](https://github.com/jglovier/jekyll-new)
+This blog is all about the technical part of uberVU. We are a company built by engineers, we work with a vast amount of data and the challenges we face every day are not for the faint of heart. With this blog we want to share our open source projects, how we tackle and solve the challenges we face daily and what we do as a team.
 
-You can find the source code for Jekyll at [github.com/jekyll/jekyll](https://github.com/jekyll/jekyll)
+Check out our [Github profile](https://github.com/uberVU)
+
+The uberVU team
