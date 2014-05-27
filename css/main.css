@@ -24,6 +24,9 @@ a:visited { color: #205caa; }
 
 /* Utility */
 
+.left { float: left; }
+.right { float: right; }
+
 .wrap:before,
 .wrap:after { content:""; display:table; }
 .wrap:after { clear: both; }
@@ -39,6 +42,9 @@ a:visited { color: #205caa; }
 /* ----------------------------------------------------------*/
 
 /* Site header */
+
+.logo-and-title { padding-top: 10px; }
+.logo-and-title .site-logo { padding-right: 20px; padding-top: 15px; }
 
 .site-header {
   border-top: 5px solid #333;
