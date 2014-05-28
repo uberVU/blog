@@ -46,7 +46,7 @@ While solving all of this, our library ended up having 5 times fewer lines of co
 
 When building this project we stuck to a few principles:
 
-**Don’t break user input**
+**Don’t brake user input**
 
 This is a fundamental part of GridList and one that is easily missed. It is what gives the feeling that it works as it should or as expected when you drag an item around. The principle can be described best as - no surprises for the user. When you drag an item to a new position, that item will be placed there and nowhere else. The grid system will not do any magic afterwards and start moving the item around to make it fit. After an item is placed in the desired position the collision mechanism kicks in and the items that have to move are arranged so that as few changes of position are needed.
 <img style="width:100%" alt="Mozaic logo" src="{{ site.url }}/images/gridding/2_collisions.gif" />
