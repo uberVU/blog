@@ -3,7 +3,7 @@ title: The uberVU Dev blog
 email: hello@ubervu.com
 description: "Talking about our projects, technical solutions and how we overcome the challenges we face while building uberVU."
 baseurl: ""
-url: "http://ubervu.github.io/blog/"
+url: "https://ubervu.github.io/blog/"
 
 # Build settings
 markdown: kramdown
