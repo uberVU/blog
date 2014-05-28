@@ -9,7 +9,7 @@ categories:
 
 ##What?
 
-[GridList](1) is a js library for creating two-dimensional, resizable and responsive list of items that we built to help create highly customizable dashboards. The library is used in one of our flagship features we call [Boards](2) and was developed with the needs of this project in mind.
+[GridList](1) is a JS library for creating two-dimensional, resizable and responsive lists that we built to help create highly customizable dashboards. The library is used in one of our flagship features we call [Boards](2) and was developed with the needs of this project in mind.
 
 ##Why a grid?
 
@@ -39,14 +39,14 @@ Our requirements for the grid system were:
  -  we wanted the grid logic to be a DOM-less library outside the jQuery plugin. This allows us to compute grid positions on the server-side and run extremely fast tests with Node.
  -  very good UX experience that would not frustrate users with large boards in which the order of the items was important. This is a major point which is very difficult to figure out as it is something quite subjective. We consider that we nailed this part by implementing a well thought collision mechanism that is a step ahead of the basic collision mechanism implemented by gridster.js (https://github.com/ducksboard/gridster.js/issues/54) and other similar libraries and by following a few principles that are discussed in depth later.
 
-While solving all of this, our library ended up having 5 times fewer lines of code then gridster.js.
+While solving all of this, our library ended up having 5 times fewer lines of code than gridster.js.
 
 
 ##Principles
 
 When building this project we stuck to a few principles:
 
-**Don’t brake user input**
+**Don’t break user input**
 
 This is a fundamental part of GridList and one that is easily missed. It is what gives the feeling that it works as it should or as expected when you drag an item around. The principle can be described best as - no surprises for the user. When you drag an item to a new position, that item will be placed there and nowhere else. The grid system will not do any magic afterwards and start moving the item around to make it fit. After an item is placed in the desired position the collision mechanism kicks in and the items that have to move are arranged so that as few changes of position are needed.
 <img style="width:100%" alt="Mozaic logo" src="{{ site.url }}/images/gridding/2_collisions.gif" />
@@ -71,7 +71,7 @@ We made the grid be completely independent of how the actual grid data is saved.
 We also put a lot of effort into making sure we only send the actual changes. Once an item is dragged and dropped into a new position the grid system will only notify about the widgets that have a new position, instead of resending the whole grid
 And we went a step even further by supporting bulk requests.
 
-**Built for the opensource community**
+**Built for the open-source community**
 
 The whole project was conceived as being open source from the very start. We are heavy users of many open source projects and tools and contribute to many of them. This was an opportunity in which we had something to give back so we wrote GridList from the start as an open source project and we will continue to improve and maintain it.
 
