@@ -9,7 +9,7 @@ categories:
 
 ##What?
 
-[GridList](1) is a JS library for creating two-dimensional, resizable and responsive lists that we built to help create highly customizable dashboards. The library is used in one of our flagship features we call [Boards](2) and was developed with the needs of this project in mind.
+[GridList][1] is a JS library for creating two-dimensional, resizable and responsive lists that we built to help create highly customizable dashboards. The library is used in one of our flagship features we call [Boards][2] and was developed with the needs of this project in mind.
 
 ##Why a grid?
 
@@ -37,7 +37,7 @@ Our requirements for the grid system were:
  -  responsive - as mentioned earlier, it had to work on all kind of displays
  -  needed full height widgets for our timelines, a particular type of widget that occupies a full column in horizontal grids or a full row in vertical ones, a feature that gridster.js did not have
  -  we wanted the grid logic to be a DOM-less library outside the jQuery plugin. This allows us to compute grid positions on the server-side and run extremely fast tests with Node.
- -  very good UX experience that would not frustrate users with large boards in which the order of the items was important. This is a major point which is very difficult to figure out as it is something quite subjective. We consider that we nailed this part by implementing a well thought collision mechanism that is a step ahead of the basic collision mechanism implemented by gridster.js (https://github.com/ducksboard/gridster.js/issues/54) and other similar libraries and by following a few principles that are discussed in depth later.
+ -  very good UX experience that would not frustrate users with large boards in which the order of the items was important. This is a major point which is very difficult to figure out as it is something quite subjective. We consider that we nailed this part by implementing a well thought collision mechanism that is a step ahead of the basic [collision mechanism](https://github.com/ducksboard/gridster.js/issues/54) implemented by gridster.js and other similar libraries and by following a few principles that are discussed in depth later.
 
 While solving all of this, our library ended up having 5 times fewer lines of code than gridster.js.
 
@@ -80,7 +80,7 @@ The whole project was conceived as being open source from the very start. We are
 The effort of building the grid materialized in our boards feature. We made a horizontal, responsive, resizable dashboard that showcases the data we crunch very well.
 <img style="width:100%" alt="Mozaic logo" src="{{ site.url }}/images/gridding/4_board.gif" />
 
-If you want to start using GridList, find more about the technical aspects or contribute, check out the [GitHub page](1)
+If you want to start using GridList, find more about the technical aspects or contribute, check out the [GitHub page][1]
 
  [1]: https://github.com/uberVU/grid
  [2]: http://media.hootsuite.com/ubervu-via-hootsuite-boards/
