@@ -1,5 +1,5 @@
 ---
-title: Github-changelog: robust notification system built on top of github
+title: Github-changelog - robust notification system built on top of github
 author: Valentin Radulescu
 layout: post
 categories:
@@ -8,6 +8,7 @@ categories:
 ---
 
 ##What is it?
+
 [Github-changelog][1] provides a mechanism to communicate to the users of your web app that updates are available and that they should reload to see the changes.
 **Github repository**: Check it out [here][1]
 **Demo**: See [the demo](http://ubervu.github.io/github-changelog)
@@ -37,6 +38,7 @@ We also removed any sort of notification for a few weeks but that also is not id
 
 ##Enter github-changelog
 This is where [github-changelog][1] comes in. By using this simple jQuery plugin, every time an issue, marked as important through a label, is closed in your GitHub repository, the users will get notified.
+<img style="width:100%" alt="Mozaic logo" src="{{ site.url }}/images/github-changelog/1_changelog.gif" />
 
 **What problems it solves**:
 
@@ -54,14 +56,16 @@ Showing a pop-up and forcing users to reload the app every time an important cha
 We could have gone a multitude of ways in how to make this notification system look and behave and there was much discussion around this. Some of the ideas were:
 
 - Facebook style notifications where a notifications icon is visible at all times but that didn't seem right. Facebook shows a very high number of updates.
+<img style="display:block; margin: 0 auto;" alt="Mozaic logo" src="{{ site.url }}/images/github-changelog/2_facebook_notification.png" />
 - Only show an updates button or section when there are updates. What we were showing to the user were in fact app updates and we wanted to show them in a manner similar to how traditional software updates are shown in desktop apps, in particular the GitHub for Mac app. This piece of software gave us much of the inspiration for the final solution.
-
+<img style="display:block; margin: 0 auto;" alt="Mozaic logo" src="{{ site.url }}/images/github-changelog/3_github_notification.png" />
 
 
 Since our app was already using GitHub commit hooks to send these messages, we decided to build on that and use the GitHub API rather than making a completely separate notification system. This made sense because this way the process could be automated. Each new feature we ship is tied into a GitHub issue that gets closed. We could in turn show information from that issue to the user so that he can understand what changes are deployed.
 
 What followed were a series of discussions on how to tackle the issue. We talked with our engineers and UI guys, took notes and wrote documentation. Before writing any code we needed to know how the feature we were building would look and how it would work.
 From these talks we came up with the basic HTML structure that would be used by plugin. We built wireframes, discussed usage scenarios and then came up with a plan on how to style the HTML.
+<img style="display:block; margin: 0 auto;" alt="Mozaic logo" src="{{ site.url }}/images/github-changelog/4_chagelog_wireframe.png" />
 
 The plugin needed only basic styling, as anyone implementing github-changelog is likely to write his own styles that match his app's design.
 
