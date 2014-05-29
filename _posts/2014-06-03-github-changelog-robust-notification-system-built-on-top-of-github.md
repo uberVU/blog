@@ -1,86 +1,88 @@
 ---
-title: GridList - building responsive dashboards with resizable widgets
-author: Ovidiu Chereches
+title: Github-changelog: robust notification system built on top of github
+author: Valentin Radulescu
 layout: post
 categories:
   - Our projects
   - Open source
 ---
 
-##What?
-
-[GridList][1] is a JS library for creating two-dimensional, resizable and responsive lists that we built to help create highly customizable dashboards. The library is used in one of our flagship features we call [Boards][2] and was developed with the needs of this project in mind.
-
-##Why a grid?
-
-Our strongest point is our data, this is what we do best, collect and analyze great volumes of data. Data alone is not enough. It is critical to show the result of all the effort of collecting and analyzing in an easy to comprehend way. We needed a way to make it easy to discover patterns and take action on them.
-
-We needed a data visualization tool that would be:
-
- -  easy and intuitive to use;
- -  easy to customize and manage;
- -  responsive - meaning that it will look great no matter what screen it is shown on, a mobile phone or a big 4k display;
-
-A dashboard is a way of visualizing data that, if properly built, would tick all the boxes of our requirements. We are passionate about dashboards and went through a few iterations and versions of displaying data in a dashboard form to understand what makes a dashboard great.
-
-Given all of these it was clear that we needed to use a grid system that supported drag and drop. We had two options, find and adapt an existing one or make our own.
-
-##Why build a new grid system?
-
-In the end we decided to build our own library. We looked at existing grid systems and most closely at gridster.js, but all of them fell short and did not satisfy our requirements fully or would have required too much effort to adapt.
-
-Our requirements for the grid system were:
-
- -  support of horizontal grids - gridster.js works vertically and our design is horizontal. We looked at making  gridster.js work both vertically and horizontally but the code required too much effort and was too complex to approach.
-<img style="width:100%" alt="Mozaic logo" src="{{ site.url }}/images/gridding/1_vertical.gif" />
-
- -  responsive - as mentioned earlier, it had to work on all kind of displays
- -  needed full height widgets for our timelines, a particular type of widget that occupies a full column in horizontal grids or a full row in vertical ones, a feature that gridster.js did not have
- -  we wanted the grid logic to be a DOM-less library outside the jQuery plugin. This allows us to compute grid positions on the server-side and run extremely fast tests with Node.
- -  very good UX experience that would not frustrate users with large boards in which the order of the items was important. This is a major point which is very difficult to figure out as it is something quite subjective. We consider that we nailed this part by implementing a well thought collision mechanism that is a step ahead of the basic [collision mechanism](https://github.com/ducksboard/gridster.js/issues/54) implemented by gridster.js and other similar libraries and by following a few principles that are discussed in depth later.
-
-While solving all of this, our library ended up having 5 times fewer lines of code than gridster.js.
+##What is it?
+[Github-changelog][1] provides a mechanism to communicate to the users of your web app that updates are available and that they should reload to see the changes.
+**Github repository**: Check it out [here][1]
+**Demo**: See [the demo](http://ubervu.github.io/github-changelog)
 
 
-##Principles
+##The source of the need
+As developers, most of us strive to reach the Holy Grail of continuous deployment, so that any member of the team can push fixes and features as soon as these are built. Mean and lean. For most of us gone are the days of huge releases, replaced by an unpredictable and continuous flow of fixes and features. And these can be many. Etsy, a company we admire for their well oiled deployment system, managed to have [517 individuall](http://codeascraft.com/2011/02/04/how-does-etsy-manage-development-and-operations/) deploys in a single month. Although we are not quite at that scale yet, we manage to have 15+ daily deploys on a productive day.
 
-When building this project we stuck to a few principles:
+##More about our deploy system
+To fully understand our deploy flow you also need to know a few details about our deploy system. Our deploy system hooked to GitHub commits. Every time we update our master repository, the deploy system pushes the latest version to the production servers and sends out a notification for the users to reload the page. Besides this, each pull-request for our main branch also has an attached issue that is closed when the pull-request is merged.
 
-**Don’t break user input**
+##The challenge
+Given that we are always pushing new things to both our backend and our web app, from time to time we need to tell our users to refresh their web app so that they will run the latest version. The refresh is needed because:
 
-This is a fundamental part of GridList and one that is easily missed. It is what gives the feeling that it works as it should or as expected when you drag an item around. The principle can be described best as - no surprises for the user. When you drag an item to a new position, that item will be placed there and nowhere else. The grid system will not do any magic afterwards and start moving the item around to make it fit. After an item is placed in the desired position the collision mechanism kicks in and the items that have to move are arranged so that as few changes of position are needed.
-<img style="width:100%" alt="Mozaic logo" src="{{ site.url }}/images/gridding/2_collisions.gif" />
-Collisions can be solved in two ways. First, an attempt to resolve them locally is made, meaning that the moved item tries to swap position with the overlapped item(s). This is the preferred fair trade. If this doesn't work out and after swapping we still have collisions inside the grid, the entire grid will be recalculated, starting with the moved item fixed in its new position. In the latter case, all the items around and to the right of the moved item might have their position slightly altered.
+-  The new version of the backend code only works with the new version of the web app and until a refresh is done our users might experience problems or errors. Although this is not the most common scenario it is the worst disruption that the deploy of a (correctly working) new version can cause.
+-  Users will not see the new features or fixes.
 
-**As independent from jquery and other libraries as possible.**
+##Solutions
+We have given this problem a lot of thought in the last couple of years since we switched to running our one-page app powered by [Mozaic](https://github.com/ubervu/mozaic) as the frontend for our system. As we see it there are 2 ways of notifying users:
 
-This was achieved by splitting the GridList library in two parts, based on their roles:
-a) An agnostic GridList class that manages the two-dimensional positions from a list of items within a virtual matrix
-b) A jQuery plugin built on top of the GridList class that translates the generic items positions into responsive DOM elements with drag and drop capabilities
-Only the second part has anything to do with the actual DOM, the core of the grid system does not need to know about it.
-The jQuery part only translates the results of the computations into pixels and handles drag and drop events.
+-  Notify and force users to do a refresh, whenever a major change arrives in production
+-  Notify and let users refresh at their own convenience
 
-**The size of the grid can be changed at any time**
+For many months we went with the first version. Although this is a fail proof way of making sure users have the latest version it is also fail proof that it will create frustration as you are interrupting someones work flow at random intervals.
 
-This makes it possible to have a responsive grid. it also makes it easy to have zoom in and out controls. What we looked for here is to keep the widget positions in place as much as possible on grid size changes.
-<img style="width:100%" alt="Mozaic logo" src="{{ site.url }}/images/gridding/3_resize.gif" />
+We also removed any sort of notification for a few weeks but that also is not ideal. So we went with a solution that does not create frustration and it also notifies users of changes.
 
-**Agnostic to how the grid is stored and efficient with reads and writes**
+##Enter github-changelog
+This is where [github-changelog][1] comes in. By using this simple jQuery plugin, every time an issue, marked as important through a label, is closed in your GitHub repository, the users will get notified.
 
-We made the grid be completely independent of how the actual grid data is saved.
-We also put a lot of effort into making sure we only send the actual changes. Once an item is dragged and dropped into a new position the grid system will only notify about the widgets that have a new position, instead of resending the whole grid
-And we went a step even further by supporting bulk requests.
+**What problems it solves**:
 
-**Built for the open-source community**
+- It gives a non-intrusive but still highly visible way of communicating when it a change is deployed.
+- It offers an automatically generated changelog
 
-The whole project was conceived as being open source from the very start. We are heavy users of many open source projects and tools and contribute to many of them. This was an opportunity in which we had something to give back so we wrote GridList from the start as an open source project and we will continue to improve and maintain it.
+As this way of working is not particular to us, we decided to create a plugin that would be easy to integrate in other web applications.
 
-##The result
+##How we built it
+We've always placed great importance in understanding a problem before working on it. The best solution is the one that requires the least amount of work to achieve the expected result.
+The first step taken was to understand the need that was going to be addressed: our users needed a better, less intrusive, notification system.
 
-The effort of building the grid materialized in our boards feature. We made a horizontal, responsive, resizable dashboard that showcases the data we crunch very well.
-<img style="width:100%" alt="Mozaic logo" src="{{ site.url }}/images/gridding/4_board.gif" />
+Showing a pop-up and forcing users to reload the app every time an important change would reach production was not cutting it any more.
 
-If you want to start using GridList, find more about the technical aspects or contribute, check out the [GitHub page][1]
+We could have gone a multitude of ways in how to make this notification system look and behave and there was much discussion around this. Some of the ideas were:
 
- [1]: https://github.com/uberVU/grid
- [2]: http://media.hootsuite.com/ubervu-via-hootsuite-boards/
+- Facebook style notifications where a notifications icon is visible at all times but that didn't seem right. Facebook shows a very high number of updates.
+- Only show an updates button or section when there are updates. What we were showing to the user were in fact app updates and we wanted to show them in a manner similar to how traditional software updates are shown in desktop apps, in particular the GitHub for Mac app. This piece of software gave us much of the inspiration for the final solution.
+
+
+
+Since our app was already using GitHub commit hooks to send these messages, we decided to build on that and use the GitHub API rather than making a completely separate notification system. This made sense because this way the process could be automated. Each new feature we ship is tied into a GitHub issue that gets closed. We could in turn show information from that issue to the user so that he can understand what changes are deployed.
+
+What followed were a series of discussions on how to tackle the issue. We talked with our engineers and UI guys, took notes and wrote documentation. Before writing any code we needed to know how the feature we were building would look and how it would work.
+From these talks we came up with the basic HTML structure that would be used by plugin. We built wireframes, discussed usage scenarios and then came up with a plan on how to style the HTML.
+
+The plugin needed only basic styling, as anyone implementing github-changelog is likely to write his own styles that match his app's design.
+
+The things that we focused on here were:
+
+- positioning - there should be a way to position the list in any corner of the screen and still have it be visible
+- maintenance - we chose to use LESS to write the styling because it makes maintaining CSS easier and cleaner.
+
+The last and most important step was to determine how the plugin would actually work. We came up with a list of options that the plugin could accept and a list of methods that it would have.
+
+What followed was a small [demo](http://codepen.io/mihneadb/pen/yhrHi?editors=001) to test that we could actually get the data from GitHub which in turn grew into the final plugin.
+One particular problem that we ran into was the [rate limiting](https://developer.github.com/v3/#rate-limiting) set by the GitHub API which meant that a user could only make 60 requests per hour to this API. This could be alleviated by providing an access token, thus bumping the rate limit up to 5000. Even so, there might have been cases where users wouldn't want to provide an access token.
+
+To tackle this problem we added in an auto refresh config option to the plugin. Users could choose how often the plugin would ping GitHub for updates or turn off this functionality entirely. We also added a method to check for updates manually that could be used when auto refresh is off.
+Our [project README](https://github.com/uberVU/github-changelog/blob/master/README.md) goes into further detail about the tech we’re using and all of the config options available to the plugin.
+
+**Wrapping it all up:** Once we had everything well defined, writing the actual code was a breeze. Because there were little unknowns it was easy to focus on just what needed to be built. Any issues that did arise were small and easily fixed . Within a couple of days we had a fully working version [ready to demo](http://ubervu.github.io/github-changelog/).
+
+##The future
+Our plugin, github-changelog, has been open-sourced from the start and we're open to anyone who wants to help us make it even better. Check out our GitHub repo and tell us what you think.
+Github-changelog is part of our product and we will continue to maintain and evolve it.
+
+[1]: https://github.com/uberVU/github-changelog/
+
