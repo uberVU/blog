@@ -5,6 +5,7 @@ layout: post
 categories:
   - Our projects
   - Open source
+meta: http://code.hootsuite.com/gridlist-building-responsive-dashboards-with-resizable-widgets/
 ---
 
 ##What?

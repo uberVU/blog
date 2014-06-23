@@ -10,6 +10,7 @@ tags:
   - open source
   - puppet
   - vagrant
+meta: http://code.hootsuite.com/automate-everything-startup-and-shutdown-the-apps-you-need-in-seconds
 ---
 Do you hate coming at the office, firing up your favourite text editor, getting ready to do some work and&#8230; it you forgot to start your Vagrant machine? Now you have to open up the terminal, type *vagrant up*, wait 90+ seconds for the beast to load and.. it doesn&#8217;t work because you forgot to to connect to the VPN and Puppet cannot correctly provision the box without this. You do that also.
 

@@ -6,10 +6,11 @@ permalink: /powering-social-insights-with-mongodb-at-ubervu-posted-on-mongodb-or
 categories:
   - Our projects
   - Tips and Tricks
+meta: http://code.hootsuite.com/powering-social-insights-with-mongodb-at-ubervu-posted-on-mongodb-org
 ---
-This month we felt like writing a few things on our experience with MongoDB and our friends at 10gen published them on their blog at [blog.mongodb.org][1]. 
+This month we felt like writing a few things on our experience with MongoDB and our friends at 10gen published them on their blog at [blog.mongodb.org][1].
 
-We talk about the challenges we face and the solutions we developed while using MongoDB. We also share how our infrastructure is setup. Give it a look and let us know what you think. 
+We talk about the challenges we face and the solutions we developed while using MongoDB. We also share how our infrastructure is setup. Give it a look and let us know what you think.
 
 <div class="addtoany_share_save_container addtoany_content_bottom">
   <div class="a2a_kit a2a_kit_size_32 addtoany_list a2a_target" id="wpa2a_11">
