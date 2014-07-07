@@ -13,6 +13,7 @@ tags:
   - elasticsearch
   - github
   - Ope source
+meta: http://code.hootsuite.com/a-github-river-for-elasticsearch
 ---
 We&#8217;ve started using [Elasticsearch][1] for a few of our projects. It&#8217;s a great tool for storing and, especially, querying  giant text datasets. In the words of their creators &#8220;Elasticsearch is a flexible and powerful open source, distributed, real-time search and analytics engine&#8221;. It&#8217;s fast and it&#8217;s ease to use and very useful in many situations.
 

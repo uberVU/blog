@@ -5,6 +5,7 @@ layout: post
 permalink: /tech-talk-signal-collect/
 categories:
   - Events
+meta: http://code.hootsuite.com/tech-talk-signal-collect
 ---
 On the 9th of May we hosted a Tech Talk in our Lounge, and the speaker was  <a href="http://www.ifi.uzh.ch/ddis/people/stutz.html" target="_blank">Philip Stutz</a>, Research Assistant at the University of Zurich.
 
